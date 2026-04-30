@@ -1,10 +1,11 @@
-from django import forms 
+# forms.py
+from django import forms
 from django.forms import ModelForm
 
-from .models import * 
-from .forms import *
+from .models import *
 
 class TaskForm(forms.ModelForm):
-  class Meta:
-    model = Task
-    field = '__all__'
+    class Meta:
+        model = Task
+        fields = '__all__'
+        
