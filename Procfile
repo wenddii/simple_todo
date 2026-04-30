@@ -1,1 +1,1 @@
-web: gunicorn simple_todo.wsgi
+gunicorn simple_todo.wsgi
