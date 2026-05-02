@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>To Do App</title>
-  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
   <style>
     body {
       background-color: #f8f9fa;
-      font-family: Arial, sans-serif;
     }
     .todo-container {
       max-width: 700px;
-      margin: 50px auto;
+      margin: 40px auto;
       background: #fff;
       padding: 25px;
       border-radius: 10px;
@@ -28,30 +27,41 @@
     .task-item:last-child {
       border-bottom: none;
     }
-    .task-title {
-      font-size: 16px;
-    }
     .task-complete {
       text-decoration: line-through;
       color: #6c757d;
     }
   </style>
 </head>
-<body>
-  <div class="todo-container">
-    <h3 class="text-center mb-4">📝 To Do List</h3>
 
-    <!-- Create Task Form -->
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mt-4">
+    <h3>📝 To Do List</h3>
+
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+    </form>
+  </div>
+
+  <!-- Main Card -->
+  <div class="todo-container">
+
+    <!-- Create Task -->
     <form method="POST" class="mb-4">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit" class="btn btn-primary w-100">Create Task</button>
+      <button type="submit" class="btn btn-primary w-100">Add Task</button>
     </form>
 
-    <!-- Task List -->
+    <!-- Tasks -->
     {% for task in tasks %}
       <div class="task-item">
-        <span class="task-title {% if task.complete %}task-complete{% endif %}">
+        <span class="{% if task.complete %}task-complete{% endif %}">
           {{ task.title }}
         </span>
         <div>
@@ -60,8 +70,12 @@
         </div>
       </div>
     {% empty %}
-      <p class="text-center text-muted">No tasks yet. Add one above!</p>
+      <p class="text-center text-muted">No tasks yet.</p>
     {% endfor %}
+
   </div>
+
+</div>
+
 </body>
 </html>
